@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  consul:
+    ports:
+      - 8500:8500
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+    networks:
+      - custom
+
+  consul2tyk:
+    build: .
+    depends_on:
+      - consul
+    networks:
+      - custom
+
+networks:
+  custom:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.44.0.0/16
