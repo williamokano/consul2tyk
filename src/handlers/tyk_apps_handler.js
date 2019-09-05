@@ -19,11 +19,16 @@ const containsApi = async apiDefinition => {
     }
 };
 
+const reloadTykDefinitions = async () => {
+    await api.get('/tyk/reload/group');
+    logger.info('Reloading Tyk definitions');
+};
+
 const createApi = async definition => {
     try {
         logger.info(`Attempting to create API definition`, definition);
         const { data } = await api.post('/tyk/apis', definition);
-        logger.info(data);
+        logger.info(`New API definition created with id ${data.key}`);
     } catch (e) {
         logger.error(e.response);
         logger.error(e);
@@ -45,23 +50,29 @@ const updateApi = async (id, definition) => {
     }
 };
 
-const onChange = data => {
-    data && data.forEach(async item => {
-        const { Key, Value } = item;
-        const filename = getFileNameFromKey(Key);
-        logger.info(`Evaluating file ${filename}`);
-
-        try {
-            const apiDefinition = JSON.parse(Value);
-            if (await containsApi(apiDefinition)) {
-                await updateApi(apiDefinition.api_id, apiDefinition);
-            } else {
-                await createApi(apiDefinition);
+const onChange = async data => {
+    if (data) {
+        const promises = data.map(async item => {
+            const { Key, Value } = item;
+            const filename = getFileNameFromKey(Key);
+            logger.info(`Evaluating file ${filename}`);
+    
+            try {
+                const apiDefinition = JSON.parse(Value);
+                if (await containsApi(apiDefinition)) {
+                    await updateApi(apiDefinition.api_id, apiDefinition);
+                } else {
+                    await createApi(apiDefinition);
+                }
+            } catch (e) {
+                logger.error(e);
             }
-        } catch (e) {
-            logger.error(e);
-        }
-    });
+        });
+
+        await Promise.all(promises);
+        await reloadTykDefinitions();
+        logger.info('Watch completed');
+    }
 };
 
 const onError = error => logger.error(error);

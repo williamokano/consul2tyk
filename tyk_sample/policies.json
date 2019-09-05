@@ -1,0 +1,42 @@
+{
+    "default": {
+        "rate": 1000,
+        "per": 1,
+        "quota_max": 100,
+        "quota_renewal_rate": 60,
+        "access_rights": {
+            "41433797848f41a558c1573d3e55a410": {
+                "api_name": "My API",
+                "api_id": "41433797848f41a558c1573d3e55a410",
+                "versions": [
+                    "Default"
+                ]
+            }
+        },
+        "org_id": "54de205930c55e15bd000001",
+        "hmac_enabled": false
+    },
+
+    "policyDefault": {
+        "access_rights": {
+            "2e08ab75-dc83-4ae0-9dce-d8131382bd26": {
+                "allowed_urls": [],
+                "name": "HTTP Bin sample app",
+                "api_id": "2e08ab75-dc83-4ae0-9dce-d8131382bd26",
+                "versions": [
+                    "Default"
+                ]
+            },
+            
+            "3f128c9c-a861-4756-b346-c5d0585a3b3e": {
+                "allowed_urls": [],
+                "api_name": "GRPC bin sample app 2",
+                "api_id": "3f128c9c-a861-4756-b346-c5d0585a3b3e",
+                "versions": [
+                    "Default"
+                ]
+            }
+        }
+    }
+
+}

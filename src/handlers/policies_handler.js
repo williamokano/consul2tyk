@@ -2,11 +2,9 @@ const logger = require('../logger');
 
 const onChange = data => {
     if (data) {
-        data.forEach(item => {
-            const { Key, Value } = item;
-            logger.info(`Found data change on key ${Key}`);
-            logger.info(JSON.parse(Value, null, 2));
-        });
+        const { Key, Value } = data;
+        logger.info(`Found data change on key ${Key}`);
+        //logger.info(JSON.stringify(Value, null, 2));
     }
 };
 
