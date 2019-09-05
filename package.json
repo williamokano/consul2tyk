@@ -5,14 +5,17 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon --inspect src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "consul": "^0.35.0"
+    "axios": "^0.19.0",
+    "consul": "^0.35.0",
+    "pino": "^5.13.2",
+    "pino-pretty": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"

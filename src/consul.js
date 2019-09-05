@@ -1,5 +1,7 @@
 const Consul = require('consul');
 
+const logger = require('./logger');
+
 const watchers = [];
 
 const createClient = config => Consul(config);
@@ -8,6 +10,7 @@ const createWatcherForDirFactory = consul => key => createWatcher(consul, key, t
 const createWatcherForKeyFactory = consul => key => createWatcher(consul, key, false);
 
 const createWatcher = (consul, key, recurse) => {
+    logger.info(`Watching ${recurse ? 'dir' : 'key'} ${key}`)
     const watcher = consul.watch({
         method: consul.kv.get,
         options: { key, recurse },
