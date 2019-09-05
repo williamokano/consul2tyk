@@ -8,7 +8,7 @@ POC project to transfer some configs from consul to Tyk API gateway.
 | CONSUL_PORT      | Consul port                                                  | 8500                  |
 | TYK_APPS_KEY     | Consul KV watched dir. Will look through all the child keys. | tyk/apps/             |
 | TYK_POLICIES_KEY | Consul KV watched key. Only looks for this key.              | tyk/policies.json     |
-| TYK_GW_URL       | Tyk Gateway REST API URL                                     | http://localhost:8000 |
+| TYK_GW_URL       | Tyk Gateway REST API URL                                     | http://localhost:8080 |
 | TYK_GW_SECRET    | Tyk Gateway secret for REST API                              | changeme              |
 
 ## How to run
